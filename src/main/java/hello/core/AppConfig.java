@@ -1,7 +1,7 @@
 package hello.core;
 
+import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
-import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
@@ -20,15 +20,26 @@ public class AppConfig {
      * 생성자 주입방식.
      */
 
+    /**
+     * 바로 new로 등록하는게 아닌 메서드로 분리하여
+     * 역할과 구현을 잘 보이게 만들었다.
+     * command + option + m -> 메서드 추출
+     */
     public MemberService memberService() {
-        return new MemberServiceImpl(new MemoryMemberRepository());
+        return new MemberServiceImpl(memberRepository());
+    }
+
+    private static MemoryMemberRepository memberRepository() {
+        return new MemoryMemberRepository();
     }
 
     // 생성자 주입 방식.
     public OrderService orderService() {
-        return new OrderServiceImpl(
-                new MemoryMemberRepository(),
-                new FixDiscountPolicy());
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+    public DiscountPolicy discountPolicy() {
+        return new FixDiscountPolicy();
     }
 
 }

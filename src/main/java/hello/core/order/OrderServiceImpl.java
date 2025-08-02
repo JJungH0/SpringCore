@@ -7,24 +7,25 @@ import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 
+// DIP원칙 준수 -> 추상화에만 의존함
+
+/**
+ * 설계 변경으로 "OrderServiceImpl"은 "FixDiscount || RateDiscount"를 의존하지 않는다.
+ * 단지 "DiscountPolicy" 인터페이스에만 의존한다.
+ * "OrderServiceImpl" 입장에서 생성자를 통해 어떤 구현 객체가 들어올지(=주입될지)는 알 수 없다.
+ * "OrderServiceImpl"의 생성자를 통해 어떤 구현 객체를 주입할지는 오직 외부("AppConfig")에서 결정
+ * "OrderServiceImpl"은 이제부터 실행에만 집중하면 된다.
+ */
 public class OrderServiceImpl implements OrderService{
-    // 현재 DIP 구조를 위반하고 있다.
-    // 현재 코드상으로는 추상화 DiscountPolicy에도 의존하고 || RateDiscountPolicy라는 구현체에도 의존한다.
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
 
-    //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
-    // 정책 할인 구현체로 변경
-//    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
-
-    // 현재 코드는 인터페이스에만 의존함 -> DIP 원칙 준수
-    /**
-     * 그렇지만 현재 코드의 문제점
-     * -> 구현체가 없으니 당연히 NullPointException이 터짐
-     * -> 그렇다면 누군가가 클라이언트인 OrderServiceImpl에 DiscountPolicy의 구현 객체를 대신
-     * -> 생성하고 주입을해주어야 한다.
-     */
-    private DiscountPolicy discountPolicy;
+    // AppConfig을 통해 값을 주입받음.
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
 
     @Override

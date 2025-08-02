@@ -7,6 +7,12 @@ import org.junit.jupiter.api.Test;
 
 class MemberServiceTest {
 
+    /**
+     * 프레임 워크
+     * 내가 작성한 코드를 제어하고, 대신 실행하면 프레임워크이다.
+     * 현재 테스트코드는 Junit의 라이프사이클을 통해 실행된다.
+     * 제어의 역전이 통한거다.
+     */
 
     private MemberService memberService;
 

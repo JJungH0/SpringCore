@@ -14,7 +14,7 @@ class OrderServiceTest {
     @Test
     void createOrder() {
         // given
-        Long memberId = 1L;
+        Long memberId = 1L; // 기본타입은 null을 지원하지 않기떄문에 우선은 래퍼타입으로 지정한다.
         Member member = new Member(memberId, "memberA", Grade.VIP);
 
         // when
@@ -22,6 +22,7 @@ class OrderServiceTest {
         Order order = orderService.createOrder(memberId, "itemA", 10_000);
 
         // than
-        Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
+        Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000); // 할인 금액
+        Assertions.assertThat(order.calculatePrice()).isEqualTo(9000); // 할인 금액을 뺀 원금
     }
 }

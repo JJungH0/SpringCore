@@ -3,6 +3,8 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 // DIP원칙 준수 -> 추상화에만 의존함
 
@@ -13,12 +15,15 @@ import hello.core.member.MemberRepository;
  * "OrderServiceImpl"의 생성자를 통해 어떤 구현 객체를 주입할지는 오직 외부("AppConfig")에서 결정
  * "OrderServiceImpl"은 이제부터 실행에만 집중하면 된다.
  */
+
+@Component
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
     // AppConfig을 통해 값을 주입받음.
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

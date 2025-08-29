@@ -1,5 +1,8 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * 설계 변경으로 인해 "MemberServiceImpl"은 "MemoryMemberRepository"를 의존하지 않는다.
  * 단지 "MemberRepository" 인터페이스만 의존한다 (=DIP 원칙 준수)
@@ -10,11 +13,15 @@ package hello.core.member;
  * 이제 구체 클래스를 몰라도 된다.
  * 관심사 분리 -> 객체를 생성하고 연결하는 역할과 실행하는 역할이 명확히 분리되어있다.
  */
+
+@Component
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
     // 의존관계 주입 = 의존성 주입
+    // 자동 의존관계 주입
+    @Autowired // ac.getBean(MemberRepository.class)
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

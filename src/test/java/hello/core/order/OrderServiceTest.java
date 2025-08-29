@@ -34,4 +34,9 @@ class OrderServiceTest {
         Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000); // 할인 금액
         Assertions.assertThat(order.calculatePrice()).isEqualTo(9000); // 할인 금액을 뺀 원금
     }
+
+    @Test
+    void filedInjectionTest() {
+//        OrderServiceImpl orderService = new OrderServiceImpl();
+    }
 }

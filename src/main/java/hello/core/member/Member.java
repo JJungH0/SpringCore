@@ -1,5 +1,8 @@
 package hello.core.member;
 
+import lombok.ToString;
+
+@ToString
 public class Member {
     private Long id;
     private String name;

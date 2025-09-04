@@ -20,6 +20,10 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.projectlombok:lombok'
+    implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
+//    spring-boot-starter-web 라이브러리 추가시 스프링 부트는 내장 톰켓 서버를 활용해서
+//    웹 서버와 스프링을 함께 실행시킨다.
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

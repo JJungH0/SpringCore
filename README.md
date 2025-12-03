@@ -1,1 +1,3 @@
-# SpringCore
+# 🌿 SpringCore
+
+> 출처: 본 문서는 김영한 강사님의 Spring-Core 강의를 기반으로 하며,  개인적인 이해 및 해석을 더해 정리한 자료입니다
